@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { PropTypes } from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const AddCategory = ({ onNewCategory }) => {
     const [inputValue, setInputValue] = useState('');
@@ -10,24 +10,27 @@ export const AddCategory = ({ onNewCategory }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (inputValue.trim().length > 2) {
-            // setCategories(callbackCategory => [...callbackCategory, inputValue]);
-            setInputValue('');
-            onNewCategory(inputValue.trim())
-        }
+        if (inputValue.trim().length <= 1) return;
+        // setCategories(callbackCategory => [...callbackCategory, inputValue]);
+        setInputValue('');
+        onNewCategory(inputValue.trim())
+
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} data-testid="FormAddCategoryTest">
             <input
                 type="text"
+                placeholder="Buscar gifs"
                 value={inputValue}
-                onChange={onInputChange}>
+                onChange={onInputChange}
+                data-testid="inputCategoryTest"
+            >
 
             </input>
         </form>
     )
 }
 AddCategory.propTypes = {
-    onNewCategory: PropTypes.func.isRequired
+    onNewCategory: PropTypes.func.isRequired,
 }
